@@ -1,0 +1,67 @@
+﻿@page
+@model SportFacilityBooking.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Sign up";
+}
+
+<div style="min-height: 100vh; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background-color: #fff; padding: 40px; border-radius: 12px; width: 100%; max-width: 420px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
+        <h2 style="text-align: center; color: #5e2b97; margin-bottom: 20px;">Create New Account</h2>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div style="background-color: #ffe6e6; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                <ul>
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li style="color: #b30000;">@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <form method="post">
+            <div style="margin-bottom: 16px;">
+                <input asp-for="newuser.Name" class="form-control" placeholder="Name" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="newuser.Name" class="text-danger"></span>
+            </div>
+
+           
+            <div style="margin-bottom: 16px;">
+                <input asp-for="newuser.Email" class="form-control" placeholder="Email address" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="newuser.Email" class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+                <input asp-for="newuser.Password" type="password" class="form-control" placeholder="Password" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="newuser.Password" class="text-danger"></span>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+                <input asp-for="newuser.PhoneNumber" type="phonenumber" class="form-control" placeholder="Phonenumber" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="newuser.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <select asp-for="newuser.Role" class="form-control" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;">
+                    <option value="">-- Select Role --</option>
+                    <option value="Guest">Guest</option>
+                    <option value="Employee">Employee</option>
+                </select>
+                <span asp-validation-for="newuser.Role" class="text-danger"></span>
+            </div>
+
+            <button type="submit" style="width: 100%; padding: 12px; background-color: #5e2b97; color: white; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s;">
+                SIGN UP
+            </button>
+
+            <p style="text-align: center; margin-top: 20px;">
+                Already registered?
+                <a href="/Authentication/Login" style="color: #5e2b97; text-decoration: none; font-weight: bold;">Log in</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
