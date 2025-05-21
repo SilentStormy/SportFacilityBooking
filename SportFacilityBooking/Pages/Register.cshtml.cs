@@ -8,8 +8,8 @@ namespace SportFacilityBooking.Pages
 {
     public class RegisterModel : PageModel
     {
-        private readonly IUserAuth _userauth;
-        public RegisterModel(IUserAuth userauth)
+        private readonly IUserAuthentication _userauth;
+        public RegisterModel(IUserAuthentication userauth)
         {
             _userauth = userauth;
         }

@@ -1,14 +1,17 @@
 using Core.Domain.Interfaces;
 using Core.Domain.Services;
 using Infrastructure.Data.Interface;
+using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IUserAuth, UserAuth>();
+builder.Services.AddScoped<IUserAuthentication, UserAuthentication>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISportFacilityView, SportFacilityService>();
+builder.Services.AddScoped<ISportFacilityRepository, SportFacilityRepository>();
 
 var app = builder.Build();
 

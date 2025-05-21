@@ -7,9 +7,9 @@ namespace SportFacilityBooking.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly IUserAuth _userAuth;
+        private readonly IUserAuthentication _userAuth;
 
-        public LoginModel(IUserAuth userAuth)
+        public LoginModel(IUserAuthentication userAuth)
         {
             _userAuth = userAuth;
         }

@@ -1,10 +1,36 @@
 ﻿@page
-@model IndexModel
+@model SportFacilityBooking.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Sport Facilities";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Available Sport Facilities</h1>
+
+@if (Model.SportFacilities != null && Model.SportFacilities.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Capacity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var facility in Model.SportFacilities)
+            {
+                <tr>
+                    <td>@facility.Name</td>
+                    <td>@facility.Type</td>
+                    <td>@facility.Description</td>
+                    <td>@facility.Capacity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No sport facilities found.</p>
+}

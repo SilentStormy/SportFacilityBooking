@@ -1,5 +1,4 @@
 ﻿using Core.Domain.Entities;
-using Core.Domain.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Interfaces
 {
-    public interface IUserAuth
+    public interface ISportFacilityView
     {
-        AuthResult Register(User user);
-        AuthResult Login(User user);
-
+        List<SportFacility> GetAllFacilities();
     }
 }

@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Core", "2. Core", "{5E23
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infrastructure", "3. Infrastructure", "{0A10A76E-2A3F-430D-A34D-7414C902CBE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportFacilityBooking_Test", "User_Test\SportFacilityBooking_Test.csproj", "{88068807-EAB8-457A-A915-DE923F435EBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3F3DBE2A-FC40-4AF0-9489-F551A1779D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3DBE2A-FC40-4AF0-9489-F551A1779D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3DBE2A-FC40-4AF0-9489-F551A1779D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88068807-EAB8-457A-A915-DE923F435EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88068807-EAB8-457A-A915-DE923F435EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88068807-EAB8-457A-A915-DE923F435EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88068807-EAB8-457A-A915-DE923F435EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

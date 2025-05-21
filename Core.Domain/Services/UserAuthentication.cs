@@ -5,12 +5,12 @@ using Infrastructure.Data.Interface;
 
 namespace Core.Domain.Services
 {
-    public class UserAuth : IUserAuth
+    public class UserAuthentication : IUserAuthentication
     {
         private readonly IUserRepository _userrepository;
         private readonly string _connectionstring;
 
-        public UserAuth(IUserRepository userrepository)
+        public UserAuthentication(IUserRepository userrepository)
         {
             _userrepository = userrepository;
         }
@@ -28,7 +28,7 @@ namespace Core.Domain.Services
                user.PhoneNumber,
                user.Role);
 
-            return AuthResult.SuccessResult(true, "Jij bent succevol geregistreerd!");
+            return AuthResult.SuccessResult(true, "Jij bent succesvol geregistreerd!");
         }
         public AuthResult Login(User user)
         {
