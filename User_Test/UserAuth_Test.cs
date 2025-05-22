@@ -2,6 +2,7 @@ using Core.Domain.Entities;
 using Core.Domain.Interfaces;
 using Core.Domain.Services;
 using Infrastructure.Data.Interface;
+using Infrastructure.Data.Repositories;
 using Moq;
 
 namespace User_Test
@@ -13,7 +14,7 @@ namespace User_Test
         public void RegisterNewUser_ShouldreturnSuccess()
         {
             //Arrange
-            var mockrepo=new Mock<IUserRepository>();
+            var mockrepo= new Mock<UserRepository>();
             var userauth=new UserAuthentication(mockrepo.Object);
 
             var newuser = new User

@@ -13,33 +13,15 @@ namespace Core.Domain.Entities
         private string type;
         private string description;
         private int capacity;
+        private TimeSlot timeslot;
 
-        public int SportFacilityId
-        {
-            get { return sportFacilityId; }
-            set { sportFacilityId = value; }
-        }
+        public int SportFacilityId { get { return sportFacilityId; } set { sportFacilityId = value; }  }
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public string Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-        public int Capacity
-        {
-            get { return capacity; }
-            set { capacity = value; }
-        }
+        public string Name { get { return name; } set { name = value; }}
+        public string Type { get { return type; } set { type = value; } }
+        public string Description { get { return description; } set { description = value; } }
+        public int Capacity { get { return capacity; }set { capacity = value; }}
+        public TimeSlot TimeSlot { get { return timeslot; }set { timeslot = value; }}
 
     }
 }

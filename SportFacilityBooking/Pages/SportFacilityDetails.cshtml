@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model SportFacilityBooking.Pages.SportFacilityDetailsModel
+@{
+    ViewData["Title"] = "Facility Details";
+}
+
+<h2>Sport Facility Details</h2>
+
+@if (Model.SportFacilityview != null)
+{
+    <div class="card p-4 shadow rounded">
+        <h3>@Model.SportFacilityview.Name</h3>
+        <p><strong>Type:</strong> @Model.SportFacilityview.Type</p>
+        <p><strong>Description:</strong> @Model.SportFacilityview.Description</p>
+        <p><strong>Capacity:</strong> @Model.SportFacilityview.Capacity</p>
+    </div>
+}
+else
+{
+    <p>Facility not found.</p>
+}

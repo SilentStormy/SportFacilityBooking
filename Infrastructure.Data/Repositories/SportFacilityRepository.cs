@@ -5,6 +5,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,9 @@ namespace Infrastructure.Data.Repositories
             using MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read()) 
             {
-                sportFacilities.Add(new SportFacilityDto { Name = reader["Name"].ToString(),
+                sportFacilities.Add(new SportFacilityDto { 
+                    SportFacilityId=Convert.ToInt32(reader["SportFacilityId"]),
+                    Name = reader["Name"].ToString(),
                     Type = reader["Type"].ToString(),
                     Description= reader["Description"].ToString(),
                     Capacity = Convert.ToInt32(reader["Capacity"])
@@ -40,5 +43,56 @@ namespace Infrastructure.Data.Repositories
             return sportFacilities;
 
         }
+
+        public List<TimeSlotDto> GetTimeSlotsByFacilityId(int SportFacilityId)
+        {
+            List<TimeSlotDto> timeslots = new();
+            using MySqlConnection connection = new MySqlConnection(_connectionstring);
+            connection.Open();
+            using MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM TimeSlot WHERE SportFacilityId =@SportFacilityId";
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                timeslots.Add(new TimeSlotDto
+                {
+                    TimeSlotId = Convert.ToInt32(reader["TimeSlotId"]),
+                    SportFacilityId = Convert.ToInt32(reader["SportFacilityId"]),
+                    StartTime = Convert.ToDateTime(reader["StartTime"]),
+                    EndTime= Convert.ToDateTime(reader["EndTime"])
+
+                });
+
+            }
+            return timeslots;
+        }
+
+        public SportFacilityDto GetSportFacilityById(int SportFacilityId)
+        {
+            using MySqlConnection connection = new MySqlConnection(_connectionstring);
+            connection.Open();
+            using MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM SportFacility WHERE SportFacilityId=@SportFacilityId";
+            command.Parameters.AddWithValue("@SportFacilityId",SportFacilityId);
+            using MySqlDataReader reader = command.ExecuteReader();
+           if (reader.Read())
+            {
+                return new SportFacilityDto
+                {
+                    SportFacilityId = Convert.ToInt32(reader["SportFacilityId"]),
+                    Name = reader["Name"].ToString(),
+                    Type = reader["Type"].ToString(),
+                    Description = reader["Description"].ToString(),
+                    Capacity = Convert.ToInt32(reader["Capacity"])
+                };
+
+                 
+            }
+            return null;
+            
+
+        }
+
+   
     }
 }

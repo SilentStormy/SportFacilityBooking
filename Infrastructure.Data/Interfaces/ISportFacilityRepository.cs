@@ -10,5 +10,7 @@ namespace Infrastructure.Data.Interfaces
     public interface ISportFacilityRepository
     {
         List<SportFacilityDto> GetAllFacilities();
+        List<TimeSlotDto> GetTimeSlotsByFacilityId(int SportFacilityId);
+        SportFacilityDto GetSportFacilityById(int SportFacilityId);
     }
 }

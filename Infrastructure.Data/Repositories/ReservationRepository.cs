@@ -28,6 +28,7 @@ namespace Infrastructure.Data.Repositories
             cmd.Parameters.AddWithValue("@UserId", userid);
             cmd.Parameters.AddWithValue("@SportfacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
+            cmd.ExecuteNonQuery();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Core.Domain.Services
         {
             _userrepository = userrepository;
         }
+     
 
         public AuthResult Register(User user)
         {
@@ -21,7 +22,7 @@ namespace Core.Domain.Services
             {
                 AuthResult.FailedResult(false, "Dit email adres bestaat er al!");
             }
-            _userrepository.Register(
+            _userrepository?.Register(
                user.Name,
                user.Email,
                user.Password,

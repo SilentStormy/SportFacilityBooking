@@ -22,6 +22,7 @@ namespace SportFacilityBooking.Pages
         public void OnGet()
         {
             SportFacilities=_sportFacilityView.GetAllFacilities();
+          
         }
     }
 }

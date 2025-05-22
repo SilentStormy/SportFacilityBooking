@@ -1,36 +1,62 @@
 ﻿@page
-@model SportFacilityBooking.Pages.IndexModel
+@model IndexModel
 @{
-    ViewData["Title"] = "Sport Facilities";
+    ViewData["Title"] = "Overzicht Sportfaciliteiten";
 }
 
-<h1>Available Sport Facilities</h1>
+<h1 class="text-center mb-4">Sportfaciliteiten</h1>
 
-@if (Model.SportFacilities != null && Model.SportFacilities.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Capacity</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var facility in Model.SportFacilities)
-            {
-                <tr>
-                    <td>@facility.Name</td>
-                    <td>@facility.Type</td>
-                    <td>@facility.Description</td>
-                    <td>@facility.Capacity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No sport facilities found.</p>
-}
+<div class="facility-grid">
+    @foreach (var facility in Model.SportFacilities)
+    {
+        <div class="facility-card">
+            <img src="/images/default-facility.jpg" alt="Facility image" />
+            <div class="facility-info">
+                <h3>@facility.Name</h3>
+                <p><strong>Type:</strong> @facility.Type</p>
+                <p>@facility.Description</p>
+                <p><strong>Capaciteit:</strong> @facility.Capacity</p>
+                <a class="btn btn-primary" asp-page="/SportFacilityDetails" asp-route-id="@facility.SportFacilityId">
+                    Bekijk details
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .facility-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .facility-card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        width: 300px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .facility-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+    .facility-info {
+        padding: 15px;
+    }
+
+        .facility-info h3 {
+            margin-top: 0;
+        }
+
+        .facility-info .btn {
+            margin-top: 10px;
+        }
+</style>
