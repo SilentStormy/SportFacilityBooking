@@ -14,7 +14,7 @@ namespace User_Test
         public void RegisterNewUser_ShouldreturnSuccess()
         {
             //Arrange
-            var mockrepo= new Mock<UserRepository>();
+            var mockrepo= new Mock<IUserRepository>();
             var userauth=new UserAuthentication(mockrepo.Object);
 
             var newuser = new User

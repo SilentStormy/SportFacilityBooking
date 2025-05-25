@@ -7,6 +7,12 @@
 <h1 class="text-center mb-4">Sportfaciliteiten</h1>
 
 <div class="facility-grid">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" style="max-width: 600px;">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     @foreach (var facility in Model.SportFacilities)
     {
         <div class="facility-card">

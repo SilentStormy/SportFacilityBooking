@@ -15,7 +15,10 @@ namespace SportFacilityBooking.Pages
         }
 
         [BindProperty]
-        public SportFacility SportFacilityview { get; set; }    
+        public SportFacility SportFacilityview { get; set; }
+
+        [BindProperty]
+        public TimeSlot AllSlots { get; set; }
 
         public void OnGet(int id)
         {

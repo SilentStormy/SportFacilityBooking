@@ -16,6 +16,7 @@ namespace Core.Domain.Entities
         private string phonenumber;
         private string role;
 
+
         public int UserId
         {
             get { return userId; }

@@ -49,7 +49,8 @@ namespace Core.Domain.Services
                 SportFacilityId = sportdto.SportFacilityId,
                 Name = sportdto.Name,
                 Type = sportdto.Type,
-                Description = sportdto.Description
+                Description = sportdto.Description,
+                Capacity= sportdto.Capacity
                
             };
         }
