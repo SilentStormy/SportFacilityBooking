@@ -23,15 +23,8 @@ namespace Core.Domain.Services
             foreach (var sportfacilitydto in _sportFacilityRepository.GetAllFacilities())
             {
                 sportfacilities.Add(new SportFacility
-                {
-                    SportFacilityId = sportfacilitydto.SportFacilityId,
-                    Name = sportfacilitydto.Name,
-                    Type = sportfacilitydto.Type,
-                    Description = sportfacilitydto.Description,
-                    Capacity = sportfacilitydto.Capacity
-
-                });
-
+                (sportfacilitydto.SportFacilityId, sportfacilitydto.Name, sportfacilitydto.Type, sportfacilitydto.Description,sportfacilitydto.Capacity));
+               
             }
             return sportfacilities;
 
@@ -44,15 +37,8 @@ namespace Core.Domain.Services
             if (sportdto == null)
             { Console.WriteLine("No record found!"); }
 
-            return new SportFacility
-            {
-                SportFacilityId = sportdto.SportFacilityId,
-                Name = sportdto.Name,
-                Type = sportdto.Type,
-                Description = sportdto.Description,
-                Capacity= sportdto.Capacity
-               
-            };
+            return (new SportFacility
+            (sportdto.SportFacilityId, sportdto.Name, sportdto.Type, sportdto.Description, sportdto.Capacity));
         }
 
         public List<TimeSlot> GetTimeSlotsByFacility(SportFacility facility)
@@ -61,10 +47,8 @@ namespace Core.Domain.Services
             foreach (var timeslotsdto in _sportFacilityRepository.GetTimeSlotsByFacilityId(facility.SportFacilityId))
             {
                 timeslots.Add(new TimeSlot
-                {
-                    StartTime = timeslotsdto.StartTime,
-                    EndTime = timeslotsdto.EndTime,
-                });
+               (timeslotsdto.TimeSlotId,facility,timeslotsdto.StartTime, timeslotsdto.EndTime));
+              
 
             }
             return timeslots;

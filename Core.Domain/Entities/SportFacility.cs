@@ -8,20 +8,23 @@ namespace Core.Domain.Entities
 {
     public class SportFacility
     {
-        private int sportFacilityId;
-        private string name;
-        private string type;
-        private string description;
-        private int capacity;
-        private TimeSlot timeslot;
-
-        public int SportFacilityId { get { return sportFacilityId; } set { sportFacilityId = value; }  }
-
-        public string Name { get { return name; } set { name = value; }}
-        public string Type { get { return type; } set { type = value; } }
-        public string Description { get { return description; } set { description = value; } }
-        public int Capacity { get { return capacity; }set { capacity = value; }}
-        public TimeSlot TimeSlot { get { return timeslot; }set { timeslot = value; }}
+        public int SportFacilityId { get; private set; }
+        public string Name { get; private set; }
+        public string Type { get; private set; }
+        public string Description { get; private set; }
+        public int MaxCapacity { get; private set; }
+        public List<TimeSlot> Timeslots { get; private set; }
+        public SportFacility() { }  
+        public SportFacility(int sportfacilityId,string name,string type,string description,int maxCapacity)
+        {
+            SportFacilityId = sportfacilityId;
+            Name = name;
+            Type = type;
+            Description = description;
+            MaxCapacity = maxCapacity;
+        }
+        
+       
 
     }
 }

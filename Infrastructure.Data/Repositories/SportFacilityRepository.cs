@@ -51,6 +51,7 @@ namespace Infrastructure.Data.Repositories
             connection.Open();
             using MySqlCommand command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM TimeSlot WHERE SportFacilityId =@SportFacilityId";
+            command.Parameters.AddWithValue("@SportFacilityId",SportFacilityId);
             using MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {

@@ -18,12 +18,15 @@ namespace SportFacilityBooking.Pages
         public SportFacility SportFacilityview { get; set; }
 
         [BindProperty]
-        public TimeSlot AllSlots { get; set; }
+        public List<TimeSlot> AllSlots { get; set; } = new();
+        [BindProperty]
+        public SportFacility selectedfacilty { get; set; }
 
         public void OnGet(int id)
         {
-            SportFacilityview=_sportfacilityView.GetFacilityDetails(new SportFacility { SportFacilityId=id});
-            
+           
+            SportFacilityview=_sportfacilityView.GetFacilityDetails(new SportFacility(id,"","","",0));
+            AllSlots=_sportfacilityView.GetTimeSlotsByFacility(SportFacilityview);
         }
     }
 }

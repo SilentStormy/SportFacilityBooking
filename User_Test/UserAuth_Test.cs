@@ -17,14 +17,7 @@ namespace User_Test
             var mockrepo= new Mock<IUserRepository>();
             var userauth=new UserAuthentication(mockrepo.Object);
 
-            var newuser = new User
-            {
-                Name = "Maria",
-                Email = "maria@outlook.com",
-                Password = "Mar",
-                PhoneNumber = "06102528",
-                Role = "Guest",
-            };
+            var newuser = new User ("Maria", "maria@outlook.com", "Mar", "06102528", "Guest");
 
             //Act
             var result = userauth.Register(newuser);

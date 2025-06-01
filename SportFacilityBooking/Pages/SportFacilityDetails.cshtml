@@ -12,10 +12,27 @@
         <h3>@Model.SportFacilityview.Name</h3>
         <p><strong>Type:</strong> @Model.SportFacilityview.Type</p>
         <p><strong>Description:</strong> @Model.SportFacilityview.Description</p>
-        <p><strong>Capacity:</strong> @Model.SportFacilityview.Capacity</p>
+        <p><strong>Capacity:</strong> @Model.SportFacilityview.MaxCapacity</p>
     </div>
 }
 else
 {
     <p>Facility not found.</p>
+}
+@if (Model.AllSlots != null && Model.AllSlots.Count > 0)
+{
+    <h4 class="mt-4">Available Time Slots</h4>
+    <ul class="list-group">
+        @foreach (var slot in Model.AllSlots)
+        {
+            <li class="list-group-item">
+                <strong>Start:</strong> @slot.Starttime.ToString("HH:mm") <br />
+                <strong>End:</strong> @slot.Endtime.ToString("HH:mm")
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No time slots available for this facility.</p>
 }

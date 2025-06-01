@@ -9,58 +9,22 @@ namespace Core.Domain.Entities
 {
     public class User
     {
-        private int userId;
-        private string name;
-        private string email;
-        private string password;
-        private string phonenumber;
-        private string role;
-
-
-        public int UserId
-        {
-            get { return userId; }
-            set { userId = value; }
-        }
+        public int UserId { get; private set; }
 
         [Required(ErrorMessage = "Naam is verplicht")]
-        public string Name
-        {
-            get { return name; }
-
-            set { name = value; }
-        }
+        public string Name { get; private set; }
 
         [Required(ErrorMessage = "Email is verplicht")]
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
+        public string Email { get; private set; }
+       
 
         [Required(ErrorMessage = "Wachtwoord is verplicht")]
         [MinLength(6, ErrorMessage = "Wachtwoord moet minstens 6 tekens bevatten")]
-        public string Password
-        {
-            get => password;
-            set
-            {
-                password = value;
-            }
-        }
-        public string PhoneNumber
-        {
-            get { return phonenumber; }
-            set { phonenumber = value; }
-        }
+        public string Password {  get; private set; }   
+        public string PhoneNumber { get; private set; }
 
 
-        public string Role
-        {
-            get { return role; }
-            set { role = value; }
-
-        }
+        public string Role {  get; private set; }   
 
         public User() { }
         public User(string email, string password)
@@ -68,12 +32,13 @@ namespace Core.Domain.Entities
             Email = email;
             Password = password;
         }
-        public User(string name, string email, string password, string phonenumber)
+        public User(string name, string email, string password, string phonenumber,string role)
         {
             Name = name;
             Email = email;
             Password = password;
             PhoneNumber = phonenumber;
+            Role = role;
         }
 
         public string GetName(string name)
