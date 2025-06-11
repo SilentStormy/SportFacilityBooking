@@ -12,6 +12,7 @@ namespace Infrastructure.Data.Dto_s
         public int UserId{ get; set; }
         public int SportFacilityId{ get; set; }
         public int TimeSlotId{ get; set; }
+        public DateTime ReservationDate { get; set; }
         public string ReservationStatus{ get; set; }
 
 

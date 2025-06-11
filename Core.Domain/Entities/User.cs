@@ -40,11 +40,11 @@ namespace Core.Domain.Entities
             PhoneNumber = phonenumber;
             Role = role;
         }
-
-        public string GetName(string name)
-
+        public User(int userid)
         {
-            return name;
+            UserId = userid;
         }
+
+      
     }
 }

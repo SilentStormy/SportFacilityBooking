@@ -12,6 +12,6 @@ namespace Infrastructure.Data.Dto_s
         public int SportFacilityId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        
+        public int Availability { get; set; }
     }
 }

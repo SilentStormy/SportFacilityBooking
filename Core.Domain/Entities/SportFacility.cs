@@ -14,6 +14,9 @@ namespace Core.Domain.Entities
         public string Description { get; private set; }
         public int MaxCapacity { get; private set; }
         public List<TimeSlot> Timeslots { get; private set; }
+        public TimeSlot SelectedTimeSlot { get; private set; }
+        public DateTime Reservationdate{ get; private set; }
+
         public SportFacility() { }  
         public SportFacility(int sportfacilityId,string name,string type,string description,int maxCapacity)
         {
@@ -24,7 +27,10 @@ namespace Core.Domain.Entities
             MaxCapacity = maxCapacity;
         }
         
-       
+        public SportFacility(int sportfacilityId)
+        {
+            sportfacilityId=SportFacilityId; 
+        }
 
     }
 }

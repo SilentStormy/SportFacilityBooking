@@ -20,5 +20,6 @@ namespace Core.Domain.Entities
             Starttime = starttime;
             Endtime = endtime;
         }
+        public TimeSlot(int timeSlotId) { timeSlotId = TimeSlotId; }
     }
 }

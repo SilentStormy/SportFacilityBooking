@@ -12,5 +12,9 @@ namespace Infrastructure.Data.Interfaces
         List<SportFacilityDto> GetAllFacilities();
         List<TimeSlotDto> GetTimeSlotsByFacilityId(int SportFacilityId);
         SportFacilityDto GetSportFacilityById(int SportFacilityId);
+
+        
+        
+
     }
 }

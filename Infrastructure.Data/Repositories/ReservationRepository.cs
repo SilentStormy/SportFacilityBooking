@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+﻿using Infrastructure.Data.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class ReservationRepository
+    public class ReservationRepository:IReservationRepository
     {
         private readonly string _connectionstring;
 
@@ -19,16 +20,33 @@ namespace Infrastructure.Data.Repositories
 
         }
 
-        public void MakeReservation(int userid, int sportfacilityid, int timeslotid)
+        public void MakeReservation(int userid, int sportfacilityid, int timeslotid,DateTime reservationdate)
         {
             using MySqlConnection conn=new MySqlConnection(_connectionstring);
             conn.Open();
             using MySqlCommand cmd = conn.CreateCommand();  
-            cmd.CommandText ="INSERT INTO Reservation(UserId,SportfacilityId,TimeSlotId) Values(@UserId,@SportFacilityId,@TimeSlotId)";
+            cmd.CommandText ="INSERT INTO Reservation(UserId,SportfacilityId,TimeSlotId,ReservationDate) Values(@UserId,@SportFacilityId,@TimeSlotId,@ReservationDate)";
             cmd.Parameters.AddWithValue("@UserId", userid);
             cmd.Parameters.AddWithValue("@SportfacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
+            cmd.Parameters.AddWithValue("@ReservationDate", reservationdate);
             cmd.ExecuteNonQuery();
+
         }
+
+       public bool isTimeSlotAvailable(int sportfacilityid, int timeslotid,DateTime reservationdate)
+        {
+            using MySqlConnection conn = new MySqlConnection(_connectionstring);
+            conn.Open();
+            using MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT COUNT(*) FROM RESERVATION WHERE SportFacilityId=@SportFacilityId AND @TimeSlotId=@TimeSlotId AND ReservationDate=@ReservationDate";
+            cmd.Parameters.AddWithValue("@SportFacilityId", sportfacilityid);
+            cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
+            cmd.Parameters.AddWithValue("@ReservationDate", reservationdate);
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            return count > 0;
+
+        }
+
     }
 }
