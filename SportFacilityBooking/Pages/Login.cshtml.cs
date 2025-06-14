@@ -20,6 +20,7 @@ namespace SportFacilityBooking.Pages
         [BindProperty]
         public string password { get; set; }
 
+        
         public void OnGet()
         {
 
@@ -37,6 +38,7 @@ namespace SportFacilityBooking.Pages
 
                 var result = _userAuth.Login(user);
                 TempData["SuccessMessage"] = result.Message;
+               
                 return RedirectToPage("/Index");
             }
             catch (Exception ex)

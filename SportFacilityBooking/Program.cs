@@ -12,7 +12,9 @@ builder.Services.AddScoped<IUserAuthentication, UserAuthentication>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISportFacilityView, SportFacilityService>();
 builder.Services.AddScoped<ISportFacilityRepository, SportFacilityRepository>();
-
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<IReservationManagement, ReservationManagement>();
+builder.Services.AddSession();
 var app = builder.Build();
 
 
@@ -23,7 +25,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

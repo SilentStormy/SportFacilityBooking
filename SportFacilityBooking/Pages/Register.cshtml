@@ -22,32 +22,32 @@
 
         <form method="post">
             <div style="margin-bottom: 16px;">
-                <input asp-for="newuser.Name" class="form-control" placeholder="Name" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
-                <span asp-validation-for="newuser.Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" placeholder="Name" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
            
             <div style="margin-bottom: 16px;">
-                <input asp-for="newuser.Email" class="form-control" placeholder="Email address" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
-                <span asp-validation-for="newuser.Email" class="text-danger"></span>
+                <input asp-for="Email" class="form-control" placeholder="Email address" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div style="margin-bottom: 16px;">
-                <input asp-for="newuser.Password" type="password" class="form-control" placeholder="Password" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
-                <span asp-validation-for="newuser.Password" class="text-danger"></span>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div style="margin-bottom: 16px;">
-                <input asp-for="newuser.PhoneNumber" type="phonenumber" class="form-control" placeholder="Phonenumber" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
-                <span asp-validation-for="newuser.PhoneNumber"></span>
+                <input asp-for="PhoneNumber" type="phonenumber" class="form-control" placeholder="Phonenumber" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;" />
+                <span asp-validation-for="PhoneNumber"></span>
             </div>
             <div style="margin-bottom: 20px;">
-                <select asp-for="newuser.Role" class="form-control" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;">
+                <select asp-for="Role" class="form-control" style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ccc;">
                     <option value="">-- Select Role --</option>
                     <option value="Guest">Guest</option>
                     <option value="Employee">Employee</option>
                 </select>
-                <span asp-validation-for="newuser.Role" class="text-danger"></span>
+                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
 
             <button type="submit" style="width: 100%; padding: 12px; background-color:darkorange; color: white; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s;">

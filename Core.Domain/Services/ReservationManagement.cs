@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Services
 {
+
     public class ReservationManagement : IReservationManagement
     {
         private readonly IReservationRepository _reservationRepository;
@@ -20,14 +21,20 @@ namespace Core.Domain.Services
            
         }
 
-        public bool IsTimeSlotAvailable(SportFacility sportFacility)
+        public List<SportReservation> GetAllReservationsByUser(User user)
         {
-            return _reservationRepository.isTimeSlotAvailable
-                (
-                sportFacility.SportFacilityId,
-                sportFacility.SelectedTimeSlot.TimeSlotId,
-                sportFacility.Reservationdate
-                );
+            var reservationdtos=_reservationRepository.GetSportReservationsByUser(user.UserId);
+            var allreservations= new List<SportReservation>();
+
+            foreach(var reservationdto in reservationdtos)
+            {
+                var facility = new SportFacility(reservationdto.SportFacilityId);
+                var timeslot = new TimeSlot(reservationdto.TimeSlotId);
+                var reservation = new SportReservation(user, facility, timeslot, reservationdto.ReservationDate);
+
+                allreservations.Add(reservation);
+            }
+            return allreservations;
         }
 
         public ReservationResult MakeReservation(SportReservation newreservation)

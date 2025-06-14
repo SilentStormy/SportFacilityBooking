@@ -11,6 +11,6 @@ namespace Core.Domain.Interfaces
     public interface IReservationManagement
     {
         ReservationResult MakeReservation(SportReservation newreservation);
-        bool IsTimeSlotAvailable(SportFacility sportFacility);
+        List<SportReservation> GetAllReservationsByUser(User user); 
     }
 }

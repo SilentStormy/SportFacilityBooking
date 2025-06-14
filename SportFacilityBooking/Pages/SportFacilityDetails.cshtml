@@ -4,35 +4,88 @@
     ViewData["Title"] = "Facility Details";
 }
 
-<h2>Sport Facility Details</h2>
 
+
+<h2 class="mb-4">Sport Facility Details</h2>
+@{
+    var showModal = TempData["ErrorMessage"] != null;
+}
 @if (Model.SportFacilityview != null)
 {
-    <div class="card p-4 shadow rounded">
+    <div class="card p-4 shadow rounded mb-4">
         <h3>@Model.SportFacilityview.Name</h3>
         <p><strong>Type:</strong> @Model.SportFacilityview.Type</p>
         <p><strong>Description:</strong> @Model.SportFacilityview.Description</p>
         <p><strong>Capacity:</strong> @Model.SportFacilityview.MaxCapacity</p>
     </div>
+
+    @if (Model.AllSlots != null && Model.AllSlots.Count > 0)
+    {
+        <form method="post">
+            <h4 class="mb-2">Select a Time Slot to Book</h4>
+            <div class="form-group mb-3">
+                <label for="SelectedTimeSlotId">Available Time Slots:</label>
+                <select asp-for="SelectedTimeSlotId" class="form-control" required>
+                    <option value="">-- Select a time slot --</option>
+                    @foreach (var slot in Model.AllSlots)
+                    {
+                        <option value="@slot.TimeSlotId">
+                            @slot.Starttime.ToString("HH:mm") - @slot.Endtime.ToString("HH:mm")
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="ReservationDate">Reservation Date:</label>
+                <input type="date" asp-for="ReservationDate" class="form-control" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Book Now</button>
+        </form>
+    }
+    else
+    {
+        <p>No time slots available for this facility.</p>
+    }
+
+    @if (Model.Message != null)
+    {
+        <div class="alert alert-info mt-3">@Model.Message</div>
+    }
 }
 else
 {
     <p>Facility not found.</p>
 }
-@if (Model.AllSlots != null && Model.AllSlots.Count > 0)
-{
-    <h4 class="mt-4">Available Time Slots</h4>
-    <ul class="list-group">
-        @foreach (var slot in Model.AllSlots)
-        {
-            <li class="list-group-item">
-                <strong>Start:</strong> @slot.Starttime.ToString("HH:mm") <br />
-                <strong>End:</strong> @slot.Endtime.ToString("HH:mm")
-            </li>
-        }
-    </ul>
+
+<div class="modal fade" id="loginWarningModal" tabindex="-1" role="dialog" aria-labelledby="loginWarningLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="loginWarningLabel">Let op!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @TempData["ErrorMessage"]
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" href="/Login">Inloggen</a>
+                <a class="btn btn-secondary" href="/Register">Registreren</a>
+                <a class="btn btn-outline-dark" href="/">Homepagina</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var showModal = @(showModal.ToString().ToLower());
+            if (showModal) {
+                var modal = new bootstrap.Modal(document.getElementById('loginWarningModal'));
+                modal.show();
+            }
+        });
+    </script>
 }
-else
-{
-    <p>No time slots available for this facility.</p>
-}
+

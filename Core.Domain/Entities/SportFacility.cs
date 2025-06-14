@@ -14,7 +14,7 @@ namespace Core.Domain.Entities
         public string Description { get; private set; }
         public int MaxCapacity { get; private set; }
         public List<TimeSlot> Timeslots { get; private set; }
-        public TimeSlot SelectedTimeSlot { get; private set; }
+      
         public DateTime Reservationdate{ get; private set; }
 
         public SportFacility() { }  

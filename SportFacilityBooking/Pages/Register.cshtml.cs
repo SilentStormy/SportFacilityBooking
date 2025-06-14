@@ -14,7 +14,20 @@ namespace SportFacilityBooking.Pages
             _userauth = userauth;
         }
         [BindProperty]
-        public User newuser { get; set; }
+        
+        public string Name { get; set; }
+
+        [BindProperty]
+        public string Email { get; set; }
+
+        [BindProperty]
+        public string Password { get; set; }
+
+        [BindProperty]
+        public string PhoneNumber { get; set; }
+
+        [BindProperty]
+        public string Role { get; set; }
 
         public void OnGet()
         {
@@ -29,8 +42,8 @@ namespace SportFacilityBooking.Pages
             }
             try
             {
-
-                var result = _userauth.Register(newuser);
+                var user=new User(Name, Email,Password, PhoneNumber,Role);
+                var result = _userauth.Register(user);
 
                 if (!result.Success)
                 {

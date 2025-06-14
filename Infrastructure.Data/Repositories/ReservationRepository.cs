@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data.Interfaces;
+﻿using Infrastructure.Data.Dto_s;
+using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -25,7 +26,7 @@ namespace Infrastructure.Data.Repositories
             using MySqlConnection conn=new MySqlConnection(_connectionstring);
             conn.Open();
             using MySqlCommand cmd = conn.CreateCommand();  
-            cmd.CommandText ="INSERT INTO Reservation(UserId,SportfacilityId,TimeSlotId,ReservationDate) Values(@UserId,@SportFacilityId,@TimeSlotId,@ReservationDate)";
+            cmd.CommandText ="INSERT INTO SPORTRESERVATION(UserId,SportfacilityId,TimeSlotId,ReservationDate) Values(@UserId,@SportFacilityId,@TimeSlotId,@ReservationDate)";
             cmd.Parameters.AddWithValue("@UserId", userid);
             cmd.Parameters.AddWithValue("@SportfacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
@@ -39,7 +40,7 @@ namespace Infrastructure.Data.Repositories
             using MySqlConnection conn = new MySqlConnection(_connectionstring);
             conn.Open();
             using MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT COUNT(*) FROM RESERVATION WHERE SportFacilityId=@SportFacilityId AND @TimeSlotId=@TimeSlotId AND ReservationDate=@ReservationDate";
+            cmd.CommandText = "SELECT COUNT(*) FROM SPORTRESERVATION WHERE SportFacilityId=@SportFacilityId AND @TimeSlotId=@TimeSlotId AND ReservationDate=@ReservationDate";
             cmd.Parameters.AddWithValue("@SportFacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
             cmd.Parameters.AddWithValue("@ReservationDate", reservationdate);
@@ -48,5 +49,31 @@ namespace Infrastructure.Data.Repositories
 
         }
 
+        public List<SportReservationDto> GetSportReservationsByUser(int userid)
+        {
+            var allreservations = new List<SportReservationDto>();
+
+
+            using MySqlConnection conn = new MySqlConnection(_connectionstring);
+            conn.Open();
+            using MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText= @" SELECT ReservationDate, SportFacilityId, TimeSlotId FROM SPORTRESERVATION WHERE UserId = @UserId ORDER BY ReservationDate DESC";
+            cmd.Parameters.AddWithValue("UserId",userid);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var reservationdto = new SportReservationDto
+                {
+                    ReservationDate = reader.GetDateTime("ReservationDate"),
+                    SportFacilityId = reader.GetInt32("SportFacilityId"),
+                    TimeSlotId = reader.GetInt32("TimeSlotId")
+                };
+
+                allreservations.Add(reservationdto);
+            }
+
+            return allreservations;
+
+        }
     }
 }
