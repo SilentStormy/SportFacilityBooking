@@ -11,5 +11,6 @@ namespace Infrastructure.Data.Interface
         bool EmailExists(string email);
         void Register(string name, string email, string password, string phonenumber, string role);
         UserDto Login(string email, string password);
+        UserDto GetUserByEmail(string email);
     }
 }

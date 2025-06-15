@@ -40,6 +40,16 @@ namespace Core.Domain.Services
             }
             return AuthResult.SuccessResult(true, "Jij bent succesvol ingelogd!");
         }
+
+        public User GetLoggedInUser(User loggedinuser)
+        {
+            var userdto= _userrepository.GetUserByEmail(loggedinuser.Email);
+            if (userdto == null)
+            {
+                AuthResult.FailedResult(false,"Jij bent niet ingeligd!");   
+            }
+            return new User(userdto.UserId,userdto.Name,userdto.Email,"",userdto.PhoneNumber,userdto.Role);
+        }
     }
 }
     

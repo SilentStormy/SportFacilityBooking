@@ -13,5 +13,6 @@ namespace Core.Domain.Interfaces
         List<SportFacility> GetAllFacilities();
         List<TimeSlot> GetTimeSlotsByFacility(SportFacility facility);
         SportFacility GetFacilityDetails(SportFacility sportFacility);
+        List<SportFacility> SearchFacility(SportFacility facility);
     }
 }

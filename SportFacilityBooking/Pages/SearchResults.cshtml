@@ -1,0 +1,19 @@
+﻿@page
+@model SportFacilityBooking.Pages.SearchResultsModel
+@{
+    ViewData["Title"] = "Zoekresultaten";
+}
+
+<h2>Zoekresultaten voor "@Model.SearchedQuert"</h2>
+@foreach (var facility in Model.Facilities)
+{
+    <div class="card mb-3 p-3 shadow rounded">
+        <h4>@facility.Name</h4>
+        <p><strong>Type:</strong> @facility.Type</p>
+        <p><strong>Beschrijving:</strong> @facility.Description</p>
+        <p><strong>Capaciteit:</strong> @facility.MaxCapacity personen</p>
+
+        <a class="btn btn-primary" href="/SportFacilityDetails/@facility.SportFacilityId">Bekijk en reserveer</a>
+    </div>
+}
+

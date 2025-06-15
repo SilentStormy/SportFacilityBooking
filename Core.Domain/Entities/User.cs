@@ -32,8 +32,17 @@ namespace Core.Domain.Entities
             Email = email;
             Password = password;
         }
-        public User(string name, string email, string password, string phonenumber,string role)
+        public User(string name, string email, string password, string phonenumber, string role)
         {
+            Name = name;
+            Email = email;
+            Password = password;
+            PhoneNumber = phonenumber;
+            Role = role;
+        }
+        public User(int userid,string name, string email, string password, string phonenumber, string role)
+        {
+            UserId = userid;
             Name = name;
             Email = email;
             Password = password;

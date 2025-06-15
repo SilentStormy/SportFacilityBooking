@@ -12,6 +12,6 @@ namespace Core.Domain.Interfaces
     {
         AuthResult Register(User user);
         AuthResult Login(User user);
-
+        User GetLoggedInUser(User loggedinuser);
     }
 }

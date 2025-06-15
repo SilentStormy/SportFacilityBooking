@@ -72,5 +72,28 @@ namespace Infrastructure.Data.Repositories
 
         }
 
+        public UserDto GetUserByEmail(string email)
+        {
+            using MySqlConnection conn = new(connectionstring);
+            conn.Open();
+            using MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT * FROM User WHERE Email = @Email";
+            cmd.Parameters.AddWithValue("@Email", email);
+
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                return new UserDto
+                {
+                    UserId = Convert.ToInt32(reader["UserId"]),
+                    Email = reader["Email"].ToString(),
+                    Name = reader["Name"].ToString(),
+                    PhoneNumber = reader["PhoneNumber"].ToString(),
+                    Role = reader["Role"].ToString()
+                };
+            }
+
+            return null;
+        }
     }
 }

@@ -48,11 +48,11 @@ namespace SportFacilityBooking.Pages
                 return Page();
             }
 
-                        
-            var reservation = new SportReservation(loggedinuser, SportFacilityview, selectedSlot, ReservationDate);
-            var result = _reservationService.MakeReservation(reservation);
+            //var loggedinuser = new User(UserId);            
+            //var reservation = new SportReservation(loggedinuser, SportFacilityview, selectedSlot, ReservationDate);
+            //var result = _reservationService.MakeReservation(reservation);
 
-            Message = result.Message;
+            //Message = result.Message;
             return Page();
         }
     }

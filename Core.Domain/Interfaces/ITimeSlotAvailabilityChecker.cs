@@ -1,4 +1,5 @@
 ﻿using Core.Domain.Entities;
+using Core.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Core.Domain.Interfaces
 {
     public interface ITimeSlotAvailabilityChecker
     {
-        bool IsAvailable(TimeSlot timeSlot);
+        bool IsAvailable(TimeSlotAvailability timeSlotAvailability);
     }
 }

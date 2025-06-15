@@ -14,6 +14,7 @@ builder.Services.AddScoped<ISportFacilityView, SportFacilityService>();
 builder.Services.AddScoped<ISportFacilityRepository, SportFacilityRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IReservationManagement, ReservationManagement>();
+builder.Services.AddScoped<ITimeSlotAvailabilityChecker,TimeSlotAvailabilityChecker>();
 builder.Services.AddSession();
 var app = builder.Build();
 

@@ -14,10 +14,12 @@ namespace Core.Domain.Services
     public class ReservationManagement : IReservationManagement
     {
         private readonly IReservationRepository _reservationRepository;
+        private readonly ITimeSlotAvailabilityChecker _availabilityChecker;
         
-        public ReservationManagement(IReservationRepository reservationRepository)
+        public ReservationManagement(IReservationRepository reservationRepository,ITimeSlotAvailabilityChecker timeSlotAvailabilityChecker)
         {
             _reservationRepository = reservationRepository;
+            _availabilityChecker = timeSlotAvailabilityChecker;
            
         }
 
@@ -37,10 +39,14 @@ namespace Core.Domain.Services
             return allreservations;
         }
 
+       
+
         public ReservationResult MakeReservation(SportReservation newreservation)
         {
-            bool isreserved = _reservationRepository.isTimeSlotAvailable(newreservation.BookedSportFacility.SportFacilityId, newreservation.BookedTimeSlot.TimeSlotId, newreservation.ReservationDate);
-            if (isreserved)
+            var availabilityrequest=new TimeSlotAvailability(newreservation.BookedSportFacility,newreservation.BookedTimeSlot,newreservation.ReservationDate);
+           
+
+            if (!_availabilityChecker.IsAvailable(availabilityrequest)) 
             {
                 return ReservationResult.FailedResult(false,"De gekozen tijdslot is al bezet!");
             }

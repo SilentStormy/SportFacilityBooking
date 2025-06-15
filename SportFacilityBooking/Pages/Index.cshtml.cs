@@ -19,10 +19,12 @@ namespace SportFacilityBooking.Pages
 
         public List<SportFacility> SportFacilities { get; set; }
 
-        public void OnGet()
+  
+        public void OnGet(string keyword)
         {
             SportFacilities=_sportFacilityView.GetAllFacilities();
-          
+           
         }
+     
     }
 }

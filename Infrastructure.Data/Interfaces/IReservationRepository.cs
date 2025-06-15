@@ -11,6 +11,8 @@ namespace Infrastructure.Data.Interfaces
     {
         void MakeReservation(int userid, int sportfacilityid, int timeslotid, DateTime reservationdate);
         bool isTimeSlotAvailable(int sportfacilityid, int timeslotid, DateTime reservationdate);   
-        List<SportReservationDto> GetSportReservationsByUser(int userid);   
+        List<SportReservationDto> GetSportReservationsByUser(int userid);
+        
+        void CanceReservation(int sportreservationid);
     }
 }

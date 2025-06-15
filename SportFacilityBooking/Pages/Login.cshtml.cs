@@ -38,8 +38,10 @@ namespace SportFacilityBooking.Pages
 
                 var result = _userAuth.Login(user);
                 TempData["SuccessMessage"] = result.Message;
-               
-                return RedirectToPage("/Index");
+
+                var loggedinuser=_userAuth.GetLoggedInUser(user);
+
+                return RedirectToPage("/Index", new {userId=loggedinuser.UserId});
             }
             catch (Exception ex)
             {

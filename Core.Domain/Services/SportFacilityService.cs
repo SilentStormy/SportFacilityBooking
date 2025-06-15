@@ -53,5 +53,19 @@ namespace Core.Domain.Services
             }
             return timeslots;
         }
+
+        public List<SportFacility> SearchFacility(SportFacility facility)
+        {
+            List<SportFacility> searchedfacilities = new();
+
+            foreach (var searchedfacility in _sportFacilityRepository.SearchSportFacility(facility.Name))
+            {
+                searchedfacilities.Add(new SportFacility
+               (searchedfacility.SportFacilityId, searchedfacility.Name, searchedfacility.Type, searchedfacility.Description, searchedfacility.Capacity));
+
+
+            }
+            return searchedfacilities;
+        }
     }
 }

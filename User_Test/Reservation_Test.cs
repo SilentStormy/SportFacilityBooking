@@ -17,9 +17,9 @@ public class Reservation_Test
     public void MakeReservation_TimeSlotAvailable_returnSuccess()
     {
         //Arrange
-        
-        var fakerepo=new FakeReservationRepo(false);
-        var reservationmanagement=new ReservationManagement(fakerepo);
+        var mockrepo=new Mock<IReservationRepository>();
+        var fakechecker=new Faketimeslotavailibility(true);
+        var reservationmanagement=new ReservationManagement(mockrepo.Object,fakechecker);
         var user = new User(1);
         var sportfacility = new SportFacility(2);
         var timeslot = new TimeSlot(5);
@@ -37,17 +37,17 @@ public class Reservation_Test
   public void MakeReservation_TimeSlotNotAvailable_returnException()
     {
         //Arrange
-        var fakerepo = new FakeReservationRepo(true);
-        var reservation = new ReservationManagement(fakerepo);
-        var reservationt = new ReservationManagement(fakerepo);
-        
+        var mockrepo = new Mock<IReservationRepository>();
+        var fakechecker = new Faketimeslotavailibility(false);
+        var reservationmanagement = new ReservationManagement(mockrepo.Object, fakechecker);
+
         var user = new User(1);
         var sportfacility = new SportFacility(2);
         var timeslot = new TimeSlot(5);
         var date = DateTime.Today;
         var newreservation = new SportReservation(user, sportfacility, timeslot, date);
 
-        var result = reservation.MakeReservation(newreservation);
+        var result = reservationmanagement.MakeReservation(newreservation);
         Assert.False(result.Success);
         Assert.Equal("De gekozen tijdslot is al bezet!",result.Message);
         

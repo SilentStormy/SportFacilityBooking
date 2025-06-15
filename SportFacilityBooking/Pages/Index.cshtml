@@ -6,6 +6,13 @@
 
 <h1 class="text-center mb-4">Sportfaciliteiten</h1>
 
+<form method="get" asp-page="/SearchResults">
+    <input name="SearchedQuert" placeholder="Zoek sportfaciliteit..." />
+        <button type="submit">Zoeken</button>
+    </form>
+
+
+
 <div class="facility-grid">
     @if (TempData["SuccessMessage"] != null)
     {

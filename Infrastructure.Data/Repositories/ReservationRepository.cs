@@ -75,5 +75,12 @@ namespace Infrastructure.Data.Repositories
             return allreservations;
 
         }
+
+        public void CanceReservation(int sportreservationid)
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

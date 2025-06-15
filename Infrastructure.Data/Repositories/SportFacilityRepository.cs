@@ -94,6 +94,35 @@ namespace Infrastructure.Data.Repositories
 
         }
 
-   
+    
+            public List<SportFacilityDto> SearchSportFacility(string keyword)
+        {
+            var facilities = new List<SportFacilityDto>();
+
+            using MySqlConnection conn = new MySqlConnection(_connectionstring);
+            conn.Open();
+            using MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT SportFacilityId, Name, Type, Description, Capacity FROM SportFacility WHERE Name LIKE @Keyword OR Type LIKE @Keyword";
+
+            cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                facilities.Add(new SportFacilityDto
+                {
+                    SportFacilityId = Convert.ToInt32(reader["SportFacilityId"]),
+                    Name = reader["Name"].ToString(),
+                    Type = reader["Type"].ToString(),
+                    Description = reader["Description"].ToString(),
+                    Capacity = Convert.ToInt32(reader["Capacity"])
+                }
+
+                );
+            }
+
+            return facilities;
+        }
     }
+    
 }
