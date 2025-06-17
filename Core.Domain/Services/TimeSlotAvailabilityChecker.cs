@@ -18,7 +18,7 @@ namespace Core.Domain.Services
         }
         public bool IsAvailable(TimeSlotAvailability timeSlotAvailability)
         {
-            return !_reservationRepository.isTimeSlotAvailable(
+           return _reservationRepository.isTimeSlotAvailable(
             timeSlotAvailability.Sportfacility.SportFacilityId,
             timeSlotAvailability.TimeSlot.TimeSlotId,
             timeSlotAvailability.ReservationDate

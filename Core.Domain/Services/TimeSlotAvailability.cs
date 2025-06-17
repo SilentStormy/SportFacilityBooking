@@ -19,7 +19,9 @@ namespace Core.Domain.Services
             Sportfacility = sportfacility;
             TimeSlot = timeslot;
             ReservationDate = reservationdate;
-        } 
+        }
+
+    
 
     }
 }

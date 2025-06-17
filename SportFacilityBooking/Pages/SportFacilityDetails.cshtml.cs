@@ -22,7 +22,7 @@ namespace SportFacilityBooking.Pages
         public SportFacility SportFacilityview { get; set; }
 
         [BindProperty]
-        public List<TimeSlot> AllSlots { get; set; } = new();
+        public List<TimeSlot> AllSlots { get; set; }
 
         [BindProperty]
         public int SelectedTimeSlotId { get; set; }
@@ -32,6 +32,8 @@ namespace SportFacilityBooking.Pages
 
         public string? Message { get; set; }
 
+        public TimeSlot? SelectedTimeSlot { get; set; }
+
         public void OnGet(int id)
         {
             SportFacilityview = _sportfacilityView.GetFacilityDetails(new SportFacility(id, "", "", "", 0));
@@ -40,19 +42,19 @@ namespace SportFacilityBooking.Pages
 
         public IActionResult OnPost(int id)
         {
-           
-            var selectedSlot = AllSlots.FirstOrDefault(t => t.TimeSlotId == SelectedTimeSlotId);
-            if (selectedSlot == null)
+            SportFacilityview = _sportfacilityView.GetFacilityDetails(new SportFacility(id, "", "", "", 0));
+            AllSlots = _sportfacilityView.GetTimeSlotsByFacility(SportFacilityview);
+            SelectedTimeSlot = AllSlots.FirstOrDefault(t => t.TimeSlotId == SelectedTimeSlotId);
+            if (SelectedTimeSlot == null)
             {
-                Message = "Invalid time slot!";
+                Message = "Ongeldige tijdslot geselecteerd.";
                 return Page();
             }
 
-            //var loggedinuser = new User(UserId);            
-            //var reservation = new SportReservation(loggedinuser, SportFacilityview, selectedSlot, ReservationDate);
-            //var result = _reservationService.MakeReservation(reservation);
+            var reservation = new SportReservation(SportFacilityview, SelectedTimeSlot, ReservationDate);
+            var result = _reservationService.MakeReservation(reservation);
 
-            //Message = result.Message;
+            Message = result.Message;
             return Page();
         }
     }

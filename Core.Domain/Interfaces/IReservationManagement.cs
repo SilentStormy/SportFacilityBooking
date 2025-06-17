@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Entities;
 using Core.Domain.Result;
+using Core.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace Core.Domain.Interfaces
     public interface IReservationManagement
     {
         ReservationResult MakeReservation(SportReservation newreservation);
-        List<SportReservation> GetAllReservationsByUser(User user); 
+        List<SportReservation> ViewAllReservations(User user); 
+        ReservationResult CancelReservation(SportReservation existedreservation);
+
+        
     }
 }

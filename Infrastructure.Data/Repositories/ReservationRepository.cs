@@ -21,13 +21,12 @@ namespace Infrastructure.Data.Repositories
 
         }
 
-        public void MakeReservation(int userid, int sportfacilityid, int timeslotid,DateTime reservationdate)
+        public void MakeReservation(int sportfacilityid, int timeslotid,DateTime reservationdate)
         {
             using MySqlConnection conn=new MySqlConnection(_connectionstring);
             conn.Open();
             using MySqlCommand cmd = conn.CreateCommand();  
-            cmd.CommandText ="INSERT INTO SPORTRESERVATION(UserId,SportfacilityId,TimeSlotId,ReservationDate) Values(@UserId,@SportFacilityId,@TimeSlotId,@ReservationDate)";
-            cmd.Parameters.AddWithValue("@UserId", userid);
+            cmd.CommandText ="INSERT INTO SPORTRESERVATION(SportfacilityId,TimeSlotId,ReservationDate) Values(@SportFacilityId,@TimeSlotId,@ReservationDate)";
             cmd.Parameters.AddWithValue("@SportfacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
             cmd.Parameters.AddWithValue("@ReservationDate", reservationdate);
@@ -43,44 +42,74 @@ namespace Infrastructure.Data.Repositories
             cmd.CommandText = "SELECT COUNT(*) FROM SPORTRESERVATION WHERE SportFacilityId=@SportFacilityId AND @TimeSlotId=@TimeSlotId AND ReservationDate=@ReservationDate";
             cmd.Parameters.AddWithValue("@SportFacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
-            cmd.Parameters.AddWithValue("@ReservationDate", reservationdate);
+            cmd.Parameters.AddWithValue("@ReservationDate", reservationdate.Date);
             int count = Convert.ToInt32(cmd.ExecuteScalar());
-            return count > 0;
-
+            return count == 0; //betekent dit dat er geen reservering is
         }
 
-        public List<SportReservationDto> GetSportReservationsByUser(int userid)
-        {
-            var allreservations = new List<SportReservationDto>();
-
-
-            using MySqlConnection conn = new MySqlConnection(_connectionstring);
-            conn.Open();
-            using MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText= @" SELECT ReservationDate, SportFacilityId, TimeSlotId FROM SPORTRESERVATION WHERE UserId = @UserId ORDER BY ReservationDate DESC";
-            cmd.Parameters.AddWithValue("UserId",userid);
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                var reservationdto = new SportReservationDto
-                {
-                    ReservationDate = reader.GetDateTime("ReservationDate"),
-                    SportFacilityId = reader.GetInt32("SportFacilityId"),
-                    TimeSlotId = reader.GetInt32("TimeSlotId")
-                };
-
-                allreservations.Add(reservationdto);
-            }
-
-            return allreservations;
-
-        }
+      
 
         public void CanceReservation(int sportreservationid)
         {
-            throw new NotImplementedException();
+            using MySqlConnection conn = new MySqlConnection(_connectionstring);
+            conn.Open();
+            using MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "DELETE FROM SPORTRESERVATION WHERE SportReservationId=@ReservationId";
+            cmd.Parameters.AddWithValue("@ReservationId", sportreservationid);
+            cmd.ExecuteNonQuery();
+
         }
 
-       
+        public SportReservationDto GetReservationByID(int reservationid)
+        {
+            
+            using MySqlConnection conn = new MySqlConnection(_connectionstring);
+            conn.Open();
+            using MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT * FROM SPORTRESERVATION WHERE SportReservationId=@ReservationId";
+            cmd.Parameters.AddWithValue("@ReservationId", reservationid);
+            using var reader=cmd.ExecuteReader();
+            if (reader.Read())
+
+            {
+                return  new SportReservationDto
+                {
+                    SportReservationId = reader.GetInt32("SportReservationId"),
+                    SportFacilityId = reader.GetInt32("SportFacilityId"),
+                    TimeSlotId = reader.GetInt32("TimeSlotId"),
+                    ReservationDate = reader.GetDateTime("ReservationDate"),
+                    ReservationStatus = reader["ReservationStatus"].ToString()
+
+                };
+
+            }
+            return null;
+        }
+
+        public List<SportReservationDto> GetAllReservationsByUser(int userid)
+        {
+            List<SportReservationDto> reservations= new();
+            using MySqlConnection connection = new MySqlConnection(_connectionstring);
+            connection.Open();
+            using MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM SportReservation WHERE UserId=@UserId";
+            command.Parameters.AddWithValue("@UserId",userid);  
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                reservations.Add(new SportReservationDto
+                {
+                    SportReservationId = Convert.ToInt32(reader["SportReservationId"]),
+                    SportFacilityId = Convert.ToInt32(reader["SportFacilityId"]),
+                    TimeSlotId = Convert.ToInt32(reader["TimeSlotId"]),
+                    ReservationDate = Convert.ToDateTime(reader["ReservationDate"]),
+                    ReservationStatus = reader["ReservationStatus"]?.ToString()
+                }); 
+
+            }
+            return reservations;
+
+        
+    }
     }
 }

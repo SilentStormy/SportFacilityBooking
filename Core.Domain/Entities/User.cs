@@ -49,11 +49,7 @@ namespace Core.Domain.Entities
             PhoneNumber = phonenumber;
             Role = role;
         }
-        public User(int userid)
-        {
-            UserId = userid;
-        }
-
+     
       
     }
 }

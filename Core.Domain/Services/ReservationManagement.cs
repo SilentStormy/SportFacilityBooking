@@ -23,35 +23,47 @@ namespace Core.Domain.Services
            
         }
 
-        public List<SportReservation> GetAllReservationsByUser(User user)
+        public ReservationResult CancelReservation(SportReservation existedreservation)
         {
-            var reservationdtos=_reservationRepository.GetSportReservationsByUser(user.UserId);
+           var existingreservation=_reservationRepository.GetReservationByID(existedreservation.SportReservationId);
+            if (existingreservation == null)
+            {
+                ReservationResult.FailedResult(false, "Deze reservering bestaat niet meer!");
+
+            }
+            _reservationRepository.CanceReservation(existedreservation.SportReservationId);
+            return ReservationResult.SuccessResult(true, "Reservering is geannuleerd!");
+
+        }
+
+        public List<SportReservation> ViewAllReservations(User user)
+        {
+            var reservationdtos=_reservationRepository.GetAllReservationsByUser(user.UserId);
             var allreservations= new List<SportReservation>();
 
             foreach(var reservationdto in reservationdtos)
             {
                 var facility = new SportFacility(reservationdto.SportFacilityId);
                 var timeslot = new TimeSlot(reservationdto.TimeSlotId);
-                var reservation = new SportReservation(user, facility, timeslot, reservationdto.ReservationDate);
+                var reservation = new SportReservation(facility, timeslot, reservationdto.ReservationDate);
 
                 allreservations.Add(reservation);
             }
             return allreservations;
         }
 
-       
+      
 
         public ReservationResult MakeReservation(SportReservation newreservation)
         {
             var availabilityrequest=new TimeSlotAvailability(newreservation.BookedSportFacility,newreservation.BookedTimeSlot,newreservation.ReservationDate);
-           
 
-            if (!_availabilityChecker.IsAvailable(availabilityrequest)) 
+            if (!_availabilityChecker.IsAvailable(availabilityrequest))
             {
-                return ReservationResult.FailedResult(false,"De gekozen tijdslot is al bezet!");
+                return ReservationResult.FailedResult(false, "De gekozen tijdslot is al bezet!");
             }
-            
-            _reservationRepository.MakeReservation(newreservation.loggedinUser.UserId, newreservation.BookedSportFacility.SportFacilityId, newreservation.BookedTimeSlot.TimeSlotId,newreservation.ReservationDate);
+
+            _reservationRepository.MakeReservation(newreservation.BookedSportFacility.SportFacilityId, newreservation.BookedTimeSlot.TimeSlotId,newreservation.ReservationDate);
             return ReservationResult.SuccessResult(true, "De reservering is voltooid!");
         }
     }

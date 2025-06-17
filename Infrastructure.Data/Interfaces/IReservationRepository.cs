@@ -9,10 +9,10 @@ namespace Infrastructure.Data.Interfaces
 {
     public interface IReservationRepository
     {
-        void MakeReservation(int userid, int sportfacilityid, int timeslotid, DateTime reservationdate);
-        bool isTimeSlotAvailable(int sportfacilityid, int timeslotid, DateTime reservationdate);   
-        List<SportReservationDto> GetSportReservationsByUser(int userid);
-        
+        void MakeReservation(int sportfacilityid, int timeslotid, DateTime reservationdate);
+        bool isTimeSlotAvailable(int sportfacilityid, int timeslotid, DateTime reservationdate);  
+        List<SportReservationDto>GetAllReservationsByUser(int userid);
+        SportReservationDto GetReservationByID(int reservationid);
         void CanceReservation(int sportreservationid);
     }
 }

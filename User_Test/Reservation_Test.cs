@@ -20,11 +20,10 @@ public class Reservation_Test
         var mockrepo=new Mock<IReservationRepository>();
         var fakechecker=new Faketimeslotavailibility(true);
         var reservationmanagement=new ReservationManagement(mockrepo.Object,fakechecker);
-        var user = new User(1);
         var sportfacility = new SportFacility(2);
         var timeslot = new TimeSlot(5);
         var date = DateTime.Today;
-        var reservation=new SportReservation(user, sportfacility, timeslot,date);
+        var reservation=new SportReservation(sportfacility, timeslot,date);
       
         //Act
         var result= reservationmanagement.MakeReservation(reservation);
@@ -39,13 +38,11 @@ public class Reservation_Test
         //Arrange
         var mockrepo = new Mock<IReservationRepository>();
         var fakechecker = new Faketimeslotavailibility(false);
-        var reservationmanagement = new ReservationManagement(mockrepo.Object, fakechecker);
-
-        var user = new User(1);
+        var reservationmanagement = new ReservationManagement(mockrepo.Object, fakechecker);;
         var sportfacility = new SportFacility(2);
         var timeslot = new TimeSlot(5);
         var date = DateTime.Today;
-        var newreservation = new SportReservation(user, sportfacility, timeslot, date);
+        var newreservation = new SportReservation( sportfacility, timeslot, date);
 
         var result = reservationmanagement.MakeReservation(newreservation);
         Assert.False(result.Success);
@@ -53,6 +50,10 @@ public class Reservation_Test
         
 
     }
+
+    //[Fact]
+
+    //public void CancelReservation_return
 
   
 

@@ -24,11 +24,11 @@ namespace SportFacilityBooking.Pages
             }
 
             int userId = Convert.ToInt32(TempData["UserId"]);
-            var user = new User(userId);
+            //var user = new User(userId);
            
             Firstname = "Gebruiker " + userId; 
 
-            Reservations = _reservationService.GetAllReservationsByUser(user);
+            //Reservations = _reservationService.GetAllReservationsByUser(user);
             return Page();
         }
     }
