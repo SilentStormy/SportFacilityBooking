@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportFacilityBooking.Pages
+namespace SportFacilityBooking.Pages.Authentication
 {
     public class RegisterModel : PageModel
     {
@@ -14,7 +14,7 @@ namespace SportFacilityBooking.Pages
             _userauth = userauth;
         }
         [BindProperty]
-        
+
         public string Name { get; set; }
 
         [BindProperty]
@@ -42,7 +42,7 @@ namespace SportFacilityBooking.Pages
             }
             try
             {
-                var user=new User(Name, Email,Password, PhoneNumber,Role);
+                var user = new User(Name, Email, Password, PhoneNumber, Role);
                 var result = _userauth.Register(user);
 
                 if (!result.Success)

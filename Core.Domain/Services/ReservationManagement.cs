@@ -15,11 +15,14 @@ namespace Core.Domain.Services
     {
         private readonly IReservationRepository _reservationRepository;
         private readonly ITimeSlotAvailabilityChecker _availabilityChecker;
+        private readonly ISportFacilityRepository _sportFacilityView;
+
         
-        public ReservationManagement(IReservationRepository reservationRepository,ITimeSlotAvailabilityChecker timeSlotAvailabilityChecker)
+        public ReservationManagement(IReservationRepository reservationRepository,ITimeSlotAvailabilityChecker timeSlotAvailabilityChecker,ISportFacilityRepository sportFacilityView)
         {
             _reservationRepository = reservationRepository;
             _availabilityChecker = timeSlotAvailabilityChecker;
+            _sportFacilityView = sportFacilityView;
            
         }
 
@@ -43,8 +46,11 @@ namespace Core.Domain.Services
 
             foreach(var reservationdto in reservationdtos)
             {
-                var facility = new SportFacility(reservationdto.SportFacilityId);
-                var timeslot = new TimeSlot(reservationdto.TimeSlotId);
+                var facilitydto = _sportFacilityView.GetSportFacilityById(reservationdto.SportFacilityId);
+                var timeslotdto = _sportFacilityView.GetTimeSlotById(reservationdto.TimeSlotId);
+
+                var facility=new SportFacility(facilitydto.SportFacilityId,facilitydto.Name,facilitydto.Type,facilitydto.Description,facilitydto.Capacity);
+                var timeslot = new TimeSlot(timeslotdto.StartTime,timeslotdto.EndTime);
                 var reservation = new SportReservation(facility, timeslot, reservationdto.ReservationDate);
 
                 allreservations.Add(reservation);
@@ -63,7 +69,7 @@ namespace Core.Domain.Services
                 return ReservationResult.FailedResult(false, "De gekozen tijdslot is al bezet!");
             }
 
-            _reservationRepository.MakeReservation(newreservation.BookedSportFacility.SportFacilityId, newreservation.BookedTimeSlot.TimeSlotId,newreservation.ReservationDate);
+            _reservationRepository.MakeReservation(newreservation.LoggedInUser.UserId,newreservation.BookedSportFacility.SportFacilityId, newreservation.BookedTimeSlot.TimeSlotId,newreservation.ReservationDate);
             return ReservationResult.SuccessResult(true, "De reservering is voltooid!");
         }
     }

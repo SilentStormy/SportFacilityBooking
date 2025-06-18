@@ -1,5 +1,6 @@
 using Core.Domain.Interfaces;
 using Core.Domain.Services;
+using Core.Domain.Services.UserAuth;
 using Infrastructure.Data.Interface;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Repositories;

@@ -3,7 +3,7 @@ using Core.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportFacilityBooking.Pages
+namespace SportFacilityBooking.Pages.Authentication
 {
     public class ProfileModel : PageModel
     {
@@ -12,23 +12,23 @@ namespace SportFacilityBooking.Pages
         {
             _reservationService = reservationService;
         }
-        public string Firstname {  get; set; }
-        public List<SportReservation> Reservations { get; set; } = new();
+        public string Firstname { get; set; }
+        public List<SportReservation> UserReservations { get; set; } = new();
+
         public IActionResult OnGet()
         {
 
-            if (TempData["UserId"] == null)
+            if (!TempData.ContainsKey("UserId"))
             {
                 TempData["ErrorMessage"] = "Je moet inloggen om je profiel te bekijken.";
                 return RedirectToPage("/Login");
             }
 
-            int userId = Convert.ToInt32(TempData["UserId"]);
-            //var user = new User(userId);
-           
-            Firstname = "Gebruiker " + userId; 
 
-            //Reservations = _reservationService.GetAllReservationsByUser(user);
+            int userid = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep("UserId");
+            var user = new User(userid);
+            UserReservations = _reservationService.ViewAllReservations(user);
             return Page();
         }
     }

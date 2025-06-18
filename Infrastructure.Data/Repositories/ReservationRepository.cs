@@ -21,12 +21,13 @@ namespace Infrastructure.Data.Repositories
 
         }
 
-        public void MakeReservation(int sportfacilityid, int timeslotid,DateTime reservationdate)
+        public void MakeReservation(int userid, int sportfacilityid, int timeslotid,DateTime reservationdate)
         {
             using MySqlConnection conn=new MySqlConnection(_connectionstring);
             conn.Open();
             using MySqlCommand cmd = conn.CreateCommand();  
-            cmd.CommandText ="INSERT INTO SPORTRESERVATION(SportfacilityId,TimeSlotId,ReservationDate) Values(@SportFacilityId,@TimeSlotId,@ReservationDate)";
+            cmd.CommandText ="INSERT INTO SPORTRESERVATION(UserId,SportfacilityId,TimeSlotId,ReservationDate) Values(@UserId,@SportFacilityId,@TimeSlotId,@ReservationDate)";
+            cmd.Parameters.AddWithValue("@UserId", userid);
             cmd.Parameters.AddWithValue("@SportfacilityId", sportfacilityid);
             cmd.Parameters.AddWithValue("@TimeSlotId", timeslotid);
             cmd.Parameters.AddWithValue("@ReservationDate", reservationdate);
@@ -92,18 +93,18 @@ namespace Infrastructure.Data.Repositories
             using MySqlConnection connection = new MySqlConnection(_connectionstring);
             connection.Open();
             using MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM SportReservation WHERE UserId=@UserId";
+            command.CommandText = "SELECT SportFacilityId, TimeSlotId, ReservationDate FROM SportReservation WHERE UserId = @UserId";
             command.Parameters.AddWithValue("@UserId",userid);  
             using MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 reservations.Add(new SportReservationDto
                 {
-                    SportReservationId = Convert.ToInt32(reader["SportReservationId"]),
+                    
                     SportFacilityId = Convert.ToInt32(reader["SportFacilityId"]),
                     TimeSlotId = Convert.ToInt32(reader["TimeSlotId"]),
                     ReservationDate = Convert.ToDateTime(reader["ReservationDate"]),
-                    ReservationStatus = reader["ReservationStatus"]?.ToString()
+                   
                 }); 
 
             }

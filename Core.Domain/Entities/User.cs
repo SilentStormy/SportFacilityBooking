@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,7 +50,13 @@ namespace Core.Domain.Entities
             PhoneNumber = phonenumber;
             Role = role;
         }
-     
-      
+        public User(int userid)
+        {
+            UserId = userid;
+        }//gebruiken voor de reservering
+        public void SetHashedPassword(string password)
+        {
+            Password = password;
+        }
     }
 }

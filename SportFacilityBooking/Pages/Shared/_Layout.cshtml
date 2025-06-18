@@ -15,7 +15,42 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="/">SportBooking</a>
+                <div class="navbar-links">
+                    <a href="/">Home</a>
+                    <a href="/Profile">Profiel</a>
+                    <a href="/Login">Inloggen</a>
+                    <a href="/Register">Registreren</a>
+                   
+                </div>
+            </div>
+        </nav>
+        <style>
+            .navbar {
+                background-color: #cceeff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+                .navbar a.nav-link, .navbar-brand {
+                    color: #000 ;
+                    font-weight: 500;
+                }
+
+            .btn-primary {
+                background-color: darkorange;
+                border-color: darkorange;
+                color: white ;
+            }
+
+                .btn-primary:hover {
+                    background-color: darkorange;
+                }
+        </style>
+
+
+        @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">SportFacilityBooking</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -35,12 +70,12 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Profile">Profile</a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">

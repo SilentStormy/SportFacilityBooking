@@ -123,6 +123,27 @@ namespace Infrastructure.Data.Repositories
 
             return facilities;
         }
+
+        public TimeSlotDto GetTimeSlotById(int TimeSlotId)
+        {
+            using MySqlConnection connection = new MySqlConnection(_connectionstring);
+            connection.Open();
+            using MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM TimeSlot WHERE TimeSlotId=@TimeSlotId";
+            command.Parameters.AddWithValue("@TimeSlotId", TimeSlotId);
+            using MySqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                return new TimeSlotDto
+                {
+                    StartTime = Convert.ToDateTime(reader["StartTime"]),
+                    EndTime = Convert.ToDateTime(reader["EndTime"])
+                };
+
+
+            }
+            return null;
+        }
     }
     
 }

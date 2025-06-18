@@ -1,75 +1,98 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Overzicht Sportfaciliteiten";
+    ViewData["Title"] = "SportBooking";
 }
-
-<h1 class="text-center mb-4">Sportfaciliteiten</h1>
-
-<form method="get" asp-page="/SearchResults">
-    <input name="SearchedQuert" placeholder="Zoek sportfaciliteit..." />
-        <button type="submit">Zoeken</button>
-    </form>
-
-
-
-<div class="facility-grid">
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success" style="max-width: 600px;">
-            @TempData["SuccessMessage"]
-        </div>
-    }
-    @foreach (var facility in Model.SportFacilities)
-    {
-        <div class="facility-card">
-            <img src="/images/default-facility.jpg" alt="Facility image" />
-            <div class="facility-info">
-                <h3>@facility.Name</h3>
-                <p><strong>Type:</strong> @facility.Type</p>
-                <p>@facility.Description</p>
-                <p><strong>Capaciteit:</strong> @facility.MaxCapacity</p>
-                <a class="btn btn-primary" asp-page="/SportFacilityDetails" asp-route-id="@facility.SportFacilityId">
-                    Bekijk details
-                </a>
-            </div>
-        </div>
-    }
-</div>
 <style>
-    .facility-grid {
+    /* BANNER */
+    .banner {
+        background: url('/images/banner.jpg') no-repeat center center;
+        background-size: cover;
+        height: 300px;
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
+        justify-content: left;
+        padding-left: 60px;
+        color: #fff;
+    }
+
+        .banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .banner .btn-orange {
+            background-color: darkorange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+        }
+
+    /* FACILITEITEN */
+    .facility-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 20px;
-        justify-content: center;
+        padding: 40px;
     }
 
     .facility-card {
-        background: #fff;
         border: 1px solid #ddd;
-        border-radius: 8px;
-        width: 300px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
+        padding: 15px;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0 0 8px rgba(0,0,0,0.05);
     }
 
         .facility-card img {
             width: 100%;
-            height: 180px;
+            height: 120px;
             object-fit: cover;
         }
 
-    .facility-info {
-        padding: 15px;
-    }
-
-        .facility-info h3 {
-            margin-top: 0;
-        }
-
-        .facility-info .btn {
+        .facility-card .btn-orange {
             margin-top: 10px;
+            background-color: darkorange;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
         }
+
+            .facility-card .btn-orange:hover {
+                background-color: darkorange;
+            }
 </style>
+
+<!-- Banner bovenin -->
+<div class="banner">
+    <div>
+        <h2>Boek je favoriete sportfaciliteit</h2>
+        <p>Sporten wanneer jij wilt, zonder gedoe</p>
+        <a href="/Login" class="btn-orange">Reserveer nu</a>
+    </div>
+</div>
+
+<!-- Faciliteiten grid -->
+<section>
+    <h3 class="text-center mt-5">Alle Faciliteiten</h3>
+    <div class="facility-grid">
+        @foreach (var facility in Model.SportFacilities)
+        {
+            <div class="facility-card">
+                <img src="/images/facility.jpg" alt="Sportfaciliteit">
+                <h5>@facility.Name</h5>
+                <p>@facility.Type</p>
+                <a href="/SportFacilityDetails/@facility.SportFacilityId" class="btn-orange">Reserveer nu</a>
+            </div>
+        }
+    </div>
+</section>

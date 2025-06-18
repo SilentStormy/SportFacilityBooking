@@ -1,0 +1,28 @@
+﻿@page
+@model SportFacilityBooking.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Profielpagina";
+}
+<h2>Mijn Reserveringen</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Facility</th>
+            <th>TimeSlot</th>
+            <th>Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var res in Model.UserReservations)
+        {
+            <tr>
+                <td>@res.BookedSportFacility.Name</td>
+                <td>@res.BookedTimeSlot.Starttime.ToString("HH:mm")</td>
+                <td>@res.BookedTimeSlot.Endtime.ToString("HH:mm")</td>
+                <td>@res.ReservationDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

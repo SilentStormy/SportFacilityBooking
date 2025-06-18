@@ -3,7 +3,7 @@ using Core.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportFacilityBooking.Pages
+namespace SportFacilityBooking.Pages.Authentication
 {
     public class LoginModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace SportFacilityBooking.Pages
         [BindProperty]
         public string password { get; set; }
 
-        
+
         public void OnGet()
         {
 
@@ -39,9 +39,9 @@ namespace SportFacilityBooking.Pages
                 var result = _userAuth.Login(user);
                 TempData["SuccessMessage"] = result.Message;
 
-                var loggedinuser=_userAuth.GetLoggedInUser(user);
-
-                return RedirectToPage("/Index", new {userId=loggedinuser.UserId});
+                var loggedinuser = _userAuth.GetLoggedInUser(user);
+                TempData["UserId"] = loggedinuser.UserId;
+                return RedirectToPage("/Index");
             }
             catch (Exception ex)
             {

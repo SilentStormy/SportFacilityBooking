@@ -3,7 +3,7 @@ using Core.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportFacilityBooking.Pages
+namespace SportFacilityBooking.Pages.SportFacility
 {
     public class SearchResultsModel : PageModel
     {

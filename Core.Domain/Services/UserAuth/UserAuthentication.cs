@@ -2,8 +2,9 @@
 using Core.Domain.Interfaces;
 using Core.Domain.Result;
 using Infrastructure.Data.Interface;
+using Microsoft.AspNetCore.Identity;
 
-namespace Core.Domain.Services
+namespace Core.Domain.Services.UserAuth
 {
     public class UserAuthentication : IUserAuthentication
     {
@@ -14,14 +15,18 @@ namespace Core.Domain.Services
         {
             _userrepository = userrepository;
         }
-     
+
 
         public AuthResult Register(User user)
         {
+
             if (_userrepository.EmailExists(user.Email))
             {
                 AuthResult.FailedResult(false, "Dit email adres bestaat er al!");
             }
+            var passwordhasher = new PasswordHasher<User>();
+            string hashedpassword = passwordhasher.HashPassword(user, user.Password);
+            user.SetHashedPassword(hashedpassword);
             _userrepository?.Register(
                user.Name,
                user.Email,
@@ -43,13 +48,12 @@ namespace Core.Domain.Services
 
         public User GetLoggedInUser(User loggedinuser)
         {
-            var userdto= _userrepository.GetUserByEmail(loggedinuser.Email);
+            var userdto = _userrepository.GetUserByEmail(loggedinuser.Email);
             if (userdto == null)
             {
-                AuthResult.FailedResult(false,"Jij bent niet ingeligd!");   
+                AuthResult.FailedResult(false, "Jij bent niet ingeligd!");
             }
-            return new User(userdto.UserId,userdto.Name,userdto.Email,"",userdto.PhoneNumber,userdto.Role);
+            return new User(userdto.UserId, userdto.Name, userdto.Email, "", userdto.PhoneNumber, userdto.Role);
         }
     }
 }
-    

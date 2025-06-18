@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Interfaces
         List<SportFacilityDto> GetAllFacilities();
         List<TimeSlotDto> GetTimeSlotsByFacilityId(int SportFacilityId);
         SportFacilityDto GetSportFacilityById(int SportFacilityId);
-
+        TimeSlotDto GetTimeSlotById(int TimeSlotId);
         List<SportFacilityDto> SearchSportFacility(string keyword);
 
 

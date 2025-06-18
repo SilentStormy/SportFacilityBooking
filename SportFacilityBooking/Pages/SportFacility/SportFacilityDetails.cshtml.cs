@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Org.BouncyCastle.Ocsp;
 
-namespace SportFacilityBooking.Pages
+namespace SportFacilityBooking.Pages.SportFacility
 {
     public class SportFacilityDetailsModel : PageModel
     {
@@ -42,16 +42,27 @@ namespace SportFacilityBooking.Pages
 
         public IActionResult OnPost(int id)
         {
+            if (!TempData.ContainsKey("UserId"))
+            {
+                TempData["ErrorMessage"] = "Je moet inloggen om je een reservering te maken.";
+                return RedirectToPage("/Login");
+            }
+
+
+            int userid = Convert.ToInt32(TempData["UserId"]);
+            TempData.Keep("UserId");
+            var loggedinuser = new User(userid);
             SportFacilityview = _sportfacilityView.GetFacilityDetails(new SportFacility(id, "", "", "", 0));
             AllSlots = _sportfacilityView.GetTimeSlotsByFacility(SportFacilityview);
             SelectedTimeSlot = AllSlots.FirstOrDefault(t => t.TimeSlotId == SelectedTimeSlotId);
+
             if (SelectedTimeSlot == null)
             {
                 Message = "Ongeldige tijdslot geselecteerd.";
                 return Page();
             }
 
-            var reservation = new SportReservation(SportFacilityview, SelectedTimeSlot, ReservationDate);
+            var reservation = new SportReservation(loggedinuser, SportFacilityview, SelectedTimeSlot, ReservationDate);
             var result = _reservationService.MakeReservation(reservation);
 
             Message = result.Message;

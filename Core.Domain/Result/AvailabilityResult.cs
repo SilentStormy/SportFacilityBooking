@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Result
 {
-    internal class AvailabilityResult
+    public class AvailabilityResult
     {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+
+        public static AuthResult SuccessResult(bool success, string message)
+        {
+            return new AuthResult { Success = true, Message = message };
+        }
+
+        public static AuthResult FailedResult(bool success, string message)
+        {
+            return new AuthResult { Success = false, Message = message };
+        }
     }
 }

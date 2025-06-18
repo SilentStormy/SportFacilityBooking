@@ -1,0 +1,106 @@
+﻿@page
+@model SportFacilityBooking.Pages.LoginModel
+@{
+    ViewData["Title"] = "Inloggen";
+}
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 75vh;
+        background-color: #f4f4f4;
+    }
+
+    .login-box {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .login-box h2 {
+            text-align: center;
+            color: darkorange;
+            margin-bottom: 25px;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: darkorange;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .login-box button:hover {
+                background-color: darkorange;
+            }
+
+        .login-box .text-danger {
+            font-size: 0.875em;
+            color: red;
+        }
+
+        .login-box p {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+    .alert-danger {
+        background-color: #ffe6e6;
+        color: #b30000;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-box">
+        <h2>Inloggen</h2>
+
+        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+        {
+            <div class="alert-danger">@ViewData["ErrorMessage"]</div>
+        }
+
+        <form method="post">
+            <div class="form-group">
+                <input asp-for="email" class="form-control" placeholder="E-mailadres" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="password" type="password" class="form-control" placeholder="Wachtwoord" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+
+            <button type="submit">Log in</button>
+
+            <p>Nog geen account? <a href="/Register">Registreer hier</a></p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

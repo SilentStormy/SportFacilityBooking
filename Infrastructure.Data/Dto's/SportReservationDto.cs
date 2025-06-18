@@ -9,6 +9,7 @@ namespace Infrastructure.Data.Dto_s
     public class SportReservationDto
     {
         public int SportReservationId { get; set; }
+        public int UserId {  get; set; }    
         public int SportFacilityId{ get; set; }
         public int TimeSlotId{ get; set; }
         public DateTime ReservationDate { get; set; }
