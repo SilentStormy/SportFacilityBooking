@@ -24,5 +24,5 @@ namespace Core.Domain.Entities
     //    //        }
     //    //    return true;
     //    //}   
-    
-}
+
+   }

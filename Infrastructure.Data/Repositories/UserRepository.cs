@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration.Internal;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -94,6 +95,19 @@ namespace Infrastructure.Data.Repositories
             }
 
             return null;
+        }
+
+        public bool UpdateProfile(string name, string email, string phonenumber)
+        {
+            using MySqlConnection connection = new MySqlConnection(connectionstring);
+            connection.Open();
+            using MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "UPDATE USER SET Name=@Name,Phonenumber=@Phonenumber WHERE Email=@Email";
+            command.Parameters.AddWithValue("@Name", name);
+            command.Parameters.AddWithValue("@Phonenumber", phonenumber);
+            command.Parameters.AddWithValue("@Email", email);
+            int affectedrows= command.ExecuteNonQuery();
+           return affectedrows > 0;
         }
     }
 }

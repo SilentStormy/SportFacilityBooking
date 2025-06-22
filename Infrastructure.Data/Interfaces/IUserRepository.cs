@@ -12,5 +12,6 @@ namespace Infrastructure.Data.Interface
         void Register(string name, string email, string password, string phonenumber, string role);
         UserDto Login(string email, string password);
         UserDto GetUserByEmail(string email);
+        bool UpdateProfile(string name, string email, string phonenumber);
     }
 }

@@ -4,6 +4,7 @@ using Core.Domain.Services;
 using Infrastructure.Data.Interface;
 using Infrastructure.Data.Repositories;
 using Moq;
+using Core.Domain.Services.UserAuth;
 
 namespace User_Test
 {
@@ -15,7 +16,8 @@ namespace User_Test
         {
             //Arrange
             var mockrepo= new Mock<IUserRepository>();
-            var userauth=new UserAuthentication(mockrepo.Object);
+            var mockpass=new Mock<PasswordHasherservice>();
+            var userauth=new UserService(mockrepo.Object,mockpass.Object);
 
             var newuser = new User (1,"Maria", "maria@outlook.com", "Mar", "06102528", "Guest");
 

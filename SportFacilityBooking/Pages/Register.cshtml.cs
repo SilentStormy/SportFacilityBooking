@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportFacilityBooking.Pages.Authentication
+namespace SportFacilityBooking.Pages
 {
     public class RegisterModel : PageModel
     {

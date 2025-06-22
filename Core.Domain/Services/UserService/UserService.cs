@@ -3,17 +3,19 @@ using Core.Domain.Interfaces;
 using Core.Domain.Result;
 using Infrastructure.Data.Interface;
 using Microsoft.AspNetCore.Identity;
+using System.Runtime.CompilerServices;
 
 namespace Core.Domain.Services.UserAuth
 {
-    public class UserAuthentication : IUserAuthentication
+    public class UserService : IUserAuthentication, IUserManagement
     {
         private readonly IUserRepository _userrepository;
         private readonly string _connectionstring;
-
-        public UserAuthentication(IUserRepository userrepository)
+        private readonly PasswordHasherservice _passwordhasherservice;
+        public UserService(IUserRepository userrepository,PasswordHasherservice passwordHasherservice)
         {
             _userrepository = userrepository;
+            _passwordhasherservice = passwordHasherservice;
         }
 
 
@@ -24,8 +26,8 @@ namespace Core.Domain.Services.UserAuth
             {
                 AuthResult.FailedResult(false, "Dit email adres bestaat er al!");
             }
-            var passwordhasher = new PasswordHasher<User>();
-            string hashedpassword = passwordhasher.HashPassword(user, user.Password);
+           
+            string hashedpassword = _passwordhasherservice.HashPassword(user,user.Password);
             user.SetHashedPassword(hashedpassword);
             _userrepository?.Register(
                user.Name,
@@ -54,6 +56,11 @@ namespace Core.Domain.Services.UserAuth
                 AuthResult.FailedResult(false, "Jij bent niet ingeligd!");
             }
             return new User(userdto.UserId, userdto.Name, userdto.Email, "", userdto.PhoneNumber, userdto.Role);
+        }
+
+        public bool UpdateProfile(User user)
+        {
+           return _userrepository.UpdateProfile(user.Name,user.Email,user.PhoneNumber);
         }
     }
 }

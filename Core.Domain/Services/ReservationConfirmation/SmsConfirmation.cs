@@ -13,6 +13,7 @@ namespace Core.Domain.Services.ReservationConfirmation
     {
         public void Send(User user)
         {
+            Console.WriteLine($"Bevestigingsvbericht verzonden naar {user.PhoneNumber}");
         }
     }
 }

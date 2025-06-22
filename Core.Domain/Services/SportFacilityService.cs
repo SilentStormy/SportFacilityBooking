@@ -54,7 +54,7 @@ namespace Core.Domain.Services
             return timeslots;
         }
 
-        public List<SportFacility> SearchFacility(SportFacility facility)
+        public List<SportFacility> SearchSportFacility(SportFacility facility)
         {
             List<SportFacility> searchedfacilities = new();
 

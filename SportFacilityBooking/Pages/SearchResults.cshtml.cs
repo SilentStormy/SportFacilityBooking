@@ -3,7 +3,7 @@ using Core.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SportFacilityBooking.Pages.SportFacility
+namespace SportFacilityBooking.Pages
 {
     public class SearchResultsModel : PageModel
     {
@@ -23,7 +23,7 @@ namespace SportFacilityBooking.Pages.SportFacility
         {
             if (!string.IsNullOrEmpty(SearchedQuert))
             {
-                Facilities = _sportFacilityView.SearchFacility(new SportFacility(0, SearchedQuert, "", "", 0));
+                Facilities = _sportFacilityView.SearchSportFacility(new SportFacility(0, SearchedQuert, "", "", 0));
             }
         }
     }

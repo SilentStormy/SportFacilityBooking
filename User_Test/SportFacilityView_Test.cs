@@ -33,7 +33,7 @@ public class SportFacilityView_Test
         mockrepo.Setup(repo => repo.SearchSportFacility(searhcedkeyword.Name))
             .Returns(expectedresult); // dus als de methode SearchSportfacility wordt aangeroepen met het argument searchedkeyword==>geef dan de expected result terug 
 
-        var result = sportfacilityservice.SearchFacility(searhcedkeyword); // deze roept weer de mock aan voor het resultaat
+        var result = sportfacilityservice.SearchSportFacility(searhcedkeyword); // deze roept weer de mock aan voor het resultaat
 
         Assert.Equal(1, result.Count);
         Assert.Contains(result, r => r.Name == "Tennisbaan 1");

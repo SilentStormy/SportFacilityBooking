@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Org.BouncyCastle.Ocsp;
 
-namespace SportFacilityBooking.Pages.SportFacility
+namespace SportFacilityBooking.Pages
 {
     public class SportFacilityDetailsModel : PageModel
     {

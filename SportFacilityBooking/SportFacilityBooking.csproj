@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Core.Domain\Core.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Authentication\" />
+    <Folder Include="Pages\SportFacility\" />
+  </ItemGroup>
+
 </Project>

@@ -50,10 +50,10 @@ namespace Core.Domain.Entities
             PhoneNumber = phonenumber;
             Role = role;
         }
-        public User(int userid)
+        public User(int userid)//gebruiken voor de reservering & voor de test
         {
             UserId = userid;
-        }//gebruiken voor de reservering
+        }
         public void SetHashedPassword(string password)
         {
             Password = password;
